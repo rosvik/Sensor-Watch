@@ -36,12 +36,12 @@
     Implements 16 alarm slots on the sensor watch
 
     Usage:
-    - In normal mode, the alarm button cycles through all 16 alarms. 
+    - In normal mode, the alarm button cycles through all 16 alarms.
     - Pressing the alarm button long in normal mode toggles the corresponding alarm on or off.
       (Whereas pressing the alarm button extra long brings you back to alarm no. 1.)
     - Pressing the light button enters setting mode and cycles through the settings of each alarm.
       (Long pressing the light button enters setting mode without illuminating the led.)
-    - In setting mode an alarm slot is selected by pressing the alarm button when the slot number 
+    - In setting mode an alarm slot is selected by pressing the alarm button when the slot number
       in the upper right corner is blinking.
     - For each alarm slot, you can select the day. These are the day modes:
         - ED = the alarm rings every day
@@ -51,7 +51,7 @@
         - MO to SU = the alarm fires only on the given day of week
     - You can fast cycle through hour or minute setting via long press of the alarm button.
     - You can select the tone in which the alarm is played. (Three pitch levels available.)
-    - You can select how many "beep rounds" are played for each alarm. 1 to 9 rounds, plus extra 
+    - You can select how many "beep rounds" are played for each alarm. 1 to 9 rounds, plus extra
       long ('L') and extra short ('o') alarms.
     - The simple watch face indicates if any alarm is set within the next 24h by showing the signal
       indicator.
@@ -119,7 +119,7 @@ static void _alarm_face_draw(movement_settings_t *settings, alarm_state_t *state
         buf[_blink_idx[state->setting_state]] = buf[_blink_idx2[state->setting_state]] = ' ';
     }
     watch_display_string(buf, 0);
-    
+
     if (state->is_setting) {
     // draw pitch level indicator
         if ((subsecond % 2) == 0 || (state->setting_state != alarm_setting_idx_pitch)) {
@@ -180,7 +180,7 @@ static void _alarm_update_alarm_enabled(movement_settings_t *settings, alarm_sta
                 alarm_minutes_of_day = state->alarm[i].hour * 60 + state->alarm[i].minute;
                 // no more shortcuts: check days and times for all possible cases...
                 if ((state->alarm[i].day == weekday_idx && alarm_minutes_of_day >= now_minutes_of_day)
-                    || ((weekday_idx + 1) % 7 == state->alarm[i].day && alarm_minutes_of_day <= now_minutes_of_day) 
+                    || ((weekday_idx + 1) % 7 == state->alarm[i].day && alarm_minutes_of_day <= now_minutes_of_day)
                     || (state->alarm[i].day == ALARM_DAY_WORKDAY && (weekday_idx < 4
                         || (weekday_idx == 4 && alarm_minutes_of_day >= now_minutes_of_day)
                         || (weekday_idx == 6 && alarm_minutes_of_day <= now_minutes_of_day)))
@@ -428,7 +428,7 @@ bool alarm_face_loop(movement_event_t event, movement_settings_t *settings, void
             }
         } else {
             // regular alarm beeps
-            movement_play_alarm_beeps((state->alarm[state->alarm_playing_idx].beeps == (ALARM_MAX_BEEP_ROUNDS - 1) ? 20 : state->alarm[state->alarm_playing_idx].beeps), 
+            movement_play_alarm_beeps((state->alarm[state->alarm_playing_idx].beeps == (ALARM_MAX_BEEP_ROUNDS - 1) ? 20 : state->alarm[state->alarm_playing_idx].beeps),
                                   _buzzer_notes[state->alarm[state->alarm_playing_idx].pitch]);
         }
         // one time alarm? -> erase it

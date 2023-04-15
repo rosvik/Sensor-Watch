@@ -173,8 +173,8 @@ bool repetition_minute_face_loop(movement_event_t event, movement_settings_t *se
              */
 
             date_time = watch_rtc_get_date_time();
-            
-            
+
+
             int hours = date_time.unit.hour;
             int quarters = date_time.unit.minute / 15;
             int minutes = date_time.unit.minute % 15;
@@ -186,7 +186,7 @@ bool repetition_minute_face_loop(movement_event_t event, movement_settings_t *se
             }
             if (hours > 0) {
                 int count = 0;
-                for(count = hours; count > 0; --count) {          
+                for(count = hours; count > 0; --count) {
                     play_hour_chime();
                 }
             }
@@ -194,7 +194,7 @@ bool repetition_minute_face_loop(movement_event_t event, movement_settings_t *se
             // chiming quarters (if needed)
             if (quarters > 0) {
                 int count = 0;
-                for(count = quarters; count > 0; --count) {          
+                for(count = quarters; count > 0; --count) {
                     play_quarter_chime();
                 }
             }
@@ -202,12 +202,12 @@ bool repetition_minute_face_loop(movement_event_t event, movement_settings_t *se
             // chiming minutes (if needed)
             if (minutes > 0) {
                 int count = 0;
-                for(count = minutes; count > 0; --count) {          
+                for(count = minutes; count > 0; --count) {
                     play_minute_chime();
                 }
             }
-           
-            break; 
+
+            break;
         default:
             return movement_default_loop_handler(event, settings);
     }
