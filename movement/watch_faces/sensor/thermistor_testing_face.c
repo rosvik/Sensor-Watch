@@ -33,15 +33,11 @@
 // and disables low energy mode so my testing device doesn't sleep.
 // You more than likely want to use thermistor_readout_face instead.
 
-static void _thermistor_testing_face_update_display(bool in_fahrenheit) {
+static void _thermistor_testing_face_update_display() {
     thermistor_driver_enable();
     float temperature_c = thermistor_driver_get_temperature();
     char buf[14];
-    if (in_fahrenheit) {
-        sprintf(buf, "%4.1f#F", temperature_c * 1.8 + 32.0);
-    } else {
-        sprintf(buf, "%4.1f#C", temperature_c);
-    }
+    sprintf(buf, "%4.1f#C", temperature_c);
     watch_display_string(buf, 4);
     thermistor_driver_disable();
 }
@@ -65,12 +61,10 @@ bool thermistor_testing_face_loop(movement_event_t event, movement_settings_t *s
     (void) context;
     switch (event.event_type) {
         case EVENT_ALARM_BUTTON_DOWN:
-            settings->bit.use_imperial_units = !settings->bit.use_imperial_units;
-            _thermistor_testing_face_update_display(settings->bit.use_imperial_units);
             break;
         case EVENT_ACTIVATE:
         case EVENT_TICK:
-            _thermistor_testing_face_update_display(settings->bit.use_imperial_units);
+            _thermistor_testing_face_update_display();
             break;
         default:
             movement_default_loop_handler(event, settings);

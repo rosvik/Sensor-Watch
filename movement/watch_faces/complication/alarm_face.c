@@ -100,15 +100,6 @@ static void _alarm_face_draw(movement_settings_t *settings, alarm_state_t *state
     }
     //handle am/pm for hour display
     uint8_t h = state->alarm[state->alarm_idx].hour;
-    if (!settings->bit.clock_mode_24h) {
-        if (h >= 12) {
-            watch_set_indicator(WATCH_INDICATOR_PM);
-            h %= 12;
-        } else {
-            watch_clear_indicator(WATCH_INDICATOR_PM);
-        }
-        if (h == 0) h = 12;
-    }
     sprintf(buf, "%c%c%2d%2d%02d  ",
         _dow_strings[i][0], _dow_strings[i][1],
         (state->alarm_idx + 1),

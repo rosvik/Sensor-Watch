@@ -296,19 +296,8 @@ static void _activity_update_logging_screen(movement_settings_t *settings, activ
         watch_clear_indicator(WATCH_INDICATOR_LAP);
         watch_date_time now = watch_rtc_get_date_time();
         uint8_t hour = now.unit.hour;
-        if (!settings->bit.clock_mode_24h) {
-            watch_clear_indicator(WATCH_INDICATOR_24H);
-            if (hour < 12)
-                watch_clear_indicator(WATCH_INDICATOR_PM);
-            else
-                watch_set_indicator(WATCH_INDICATOR_PM);
-            hour %= 12;
-            if (hour == 0) hour = 12;
-        }
-        else {
-            watch_set_indicator(WATCH_INDICATOR_24H);
-            watch_clear_indicator(WATCH_INDICATOR_PM);
-        }
+        watch_set_indicator(WATCH_INDICATOR_24H);
+        watch_clear_indicator(WATCH_INDICATOR_PM);
         sprintf(activity_buf, "%2d%02d  ", hour, now.unit.minute);
         watch_set_colon();
         watch_display_string(activity_buf, 4);
